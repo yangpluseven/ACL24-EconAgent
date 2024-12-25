@@ -8,7 +8,7 @@ It is used in the Economics Course (走进经济学) at Ocean University of Chin
 
 # Changes in this fork
 
-Considering that the original implementation is based on chatGPT API, and it is relatively expensive for studnts (who may not be a professional researcher but just a amateur). And the original work used GPT-3.5 API to be specific, which is not in service anymore. So we use Ollama to replace it.
+Considering that the original implementation is based on chatGPT API, and it is relatively expensive for students (who may not be a professional researcher but just a amateur). And the original work used GPT-3.5 API to be specific, which is not in service anymore. So we use Ollama to replace it.
 
 # Run
 
