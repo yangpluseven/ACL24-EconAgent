@@ -1,22 +1,43 @@
-# EconAgent: Large Language Model-Empowered Agents for Simulating Macroeconomic Activities
-Official implementation of this ACL 2024 paper.
+# EconAgent with Ollama
 
-It's based on [Foundation](https://github.com/MaciejMacko/ai-economist), An Economic Simulation Framework, which is announced by this paper: 
+Forked from [the official implementation of this ACL 2024 paper](https://github.com/tsinghua-fib-lab/ACL24-EconAgent/tree/master):
 
-Zheng, Stephan, et al. "The ai economist: Improving equality and productivity with ai-driven tax policies." arXiv preprint arXiv:2004.13332 (2020).
+Nian Li, Chen Gao, et al. [EconAgent: Large Language Model-Empowered Agents for Simulating Macroeconomic Activities](https://arxiv.org/abs/2310.10436), ACL 2024.
+
+It is used in the Economics Course (走进经济学) at Ocean University of China for the final assignment of Fall 2024.
+
+# Changes in this fork
+
+Considering that the original implementation is based on chatGPT API, and it is relatively expensive for studnts (who may not be a professional researcher but just a amateur). And the original work used GPT-3.5 API to be specific, which is not in service anymore. So we use Ollama to replace it.
 
 # Run
-Simulate with GPT-3.5, 100 agents, and 240 months (fill openai.api_key in simulate_utils.py): 
 
-`python simulate.py --policy_model gpt --num_agents 100 --episode_length 240`
+Install Ollama using one command:
 
-Simulate with Composite, 100 agents, and 240 months:
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
 
-`python simulate.py --policy_model complex --num_agents 100 --episode_length 240`
+Get llama3.1 model by:
 
-For RL approaches, *i.e.*, **The ai economist**, we just follow their training codes and use the trained models for simulations. See appendix in the paper for details.
+```
+ollama run install llama3.1
+```
 
-# Update in 2024.8.16
-The simulation was only tested using gpt-3.5-turbo-0613, but this model seems to no longer be accessible and has been replaced by gpt-4o-mini. If `gpt_error` is significantly greater than 0 (e.g., exceeding 10), meaning GPT generates many unreasonable decisions, please adjust the prompts accordingly, especially the parts related to format instruction:
+Simulate with Ollama, 100 agents, and 240 months:
 
-*"Please share your decisions in a JSON format. The format should have two keys: 'work' (a value between 0 and 1 with intervals of 0.02, indicating the willingness or propensity to work) and 'consumption' (a value between 0 and 1 with intervals of 0.02, indicating the proportion of all your savings and income you intend to spend on essential goods)."*
+`python simulate_ollama.py --num_agents 100 --episode_length 240`
+
+You can modify `--num_agents`, `--episode_length`, `--dialog_len`, `--max_price_inflation`, and `--max_wage_inflation` to change the parameters of the simulation.
+
+You can change the model by modifying `ollama_model` in `simulate_utils.py`.
+
+Generated file will be saved in `data/` directory, you can change it in `simulate_utils.py`.
+
+Pickle file can be loaded as follows:
+```
+import pickle
+file_name = 'Your .pkl file name'
+with open(file_name, 'rb') as f:
+    data = pickle.load(f)
+```

@@ -1,6 +1,5 @@
 from typing import Optional
 import argparse
-import fire
 import os
 import sys
 
@@ -256,4 +255,4 @@ def main(policy_model='gpt', num_agents=100, episode_length=240, dialog_len=3, b
         print(f'#gpt errors: {gpt_error}')
 
 if __name__ == "__main__":
-    fire.Fire(main)
+    main()
